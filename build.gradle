@@ -1,0 +1,47 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'io.github.robwin'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+	sourceCompatibility = "1.8"
+	targetCompatibility = "1.8"
+	options.deprecation = true
+	options.encoding = 'UTF-8'
+	//options.compilerArgs += ["-Xlint:unchecked", "-parameters"]
+}
+
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+configurations.all {
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+ext{
+	resilience4jVersion = '0.13.0-SNAPSHOT'
+	springBoot2Version = '2.0.0.RELEASE'
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-actuator:${springBoot2Version}")
+	testCompile("org.springframework.boot:spring-boot-starter-web:${springBoot2Version}")
+	testCompile("org.springframework.boot:spring-boot-starter-test:${springBoot2Version}")
+}
